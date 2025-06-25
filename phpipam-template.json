@@ -1,13 +1,13 @@
 {
   "name": "phpIPAM",
   "type": 1,
-  "note": "IP Address Management - Deployed using Docker Compose",
+  "note": "Deploy phpIPAM from GitHub via Docker Compose",
   "categories": ["networking", "IPAM", "tools"],
   "platform": "linux",
   "logo": "https://avatars.githubusercontent.com/u/6645205?s=200&v=4",
-  "description": "phpIPAM is an open-source IP address management application.",
+  "description": "phpIPAM is an open-source IP address management application deployed via Docker Compose from adnantalat's GitHub repo.",
   "env": [],
   "repository": {
-    "stackfile": "https://raw.githubusercontent.com/adnantalat/phpipam/docker-compose.yml"
+    "stackfile": "https://raw.githubusercontent.com/adnantalat/phpipam/main/docker-compose.yml"
   }
 }
