@@ -1,0 +1,51 @@
+services:
+  phpipam-web:
+    image: phpipam/phpipam-www:latest
+    container_name: phpipam-web
+    restart: unless-stopped
+    depends_on:
+      - phpipam-mariadb
+    environment:
+      - MYSQL_USER=phpipamuser
+      - MYSQL_PASS=StrongPassword123!
+      - MYSQL_DB=phpipam
+      - MYSQL_HOST=phpipam-mariadb
+    ports:
+      - "8080:80"
+    networks:
+      - phpipam_net
+
+  phpipam-cron:
+    image: phpipam/phpipam-cron:latest
+    container_name: phpipam-cron
+    restart: unless-stopped
+    depends_on:
+      - phpipam-web
+    environment:
+      - MYSQL_USER=phpipamuser
+      - MYSQL_PASS=StrongPassword123!
+      - MYSQL_DB=phpipam
+      - MYSQL_HOST=phpipam-mariadb
+    networks:
+      - phpipam_net
+
+  phpipam-mariadb:
+    image: mariadb:10.6
+    container_name: phpipam-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=StrongRootPass!
+      - MYSQL_DATABASE=phpipam
+      - MYSQL_USER=phpipamuser
+      - MYSQL_PASSWORD=StrongPassword123!
+    volumes:
+      - phpipam_db_data:/var/lib/mysql
+    networks:
+      - phpipam_net
+
+volumes:
+  phpipam_db_data:
+
+networks:
+  phpipam_net:
+    driver: bridge
